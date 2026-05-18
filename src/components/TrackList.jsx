@@ -10,6 +10,8 @@ function TrackList(props) {
           name={track.name}
           artist={track.artist}
           album={track.album}
+          onAddTrack={props.onAddTrack}
+          track={track}
         />
       ))}
     </div>

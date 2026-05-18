@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-function SearchBar() {
+function SearchBar(props) {
   const [searchTerm, setSearchTerm] = useState('');
 
   function handleSearch() {
-    alert('You searched for: ' + searchTerm);
+    props.onSearch(searchTerm);
   }
 
   return (
