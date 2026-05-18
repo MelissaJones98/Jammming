@@ -1,17 +1,17 @@
-#Codecademy Practice Project: Jammming
+# Codecademy Practice Project: Jammming
 
-##Description
+## Description
 A React web application called Jammming. Using my knowledge of React components, passing state, and requests with the Spotify API I built a website that allows users to search the Spotify library, create a custom playlist, then save it to their Spotify account.
 
-##Features
+## Features
 - Users can search for songs by song title, artist's name and genre.
 - Users can see information about each song such as; title, artist, and album for songs they queried.
 - Users can export their custom playlist to their personal Spotify account. 
 
-##How to Use
+## How to Use
 
 
-##Technologies
+## Technologies
 - HTML
 - CSS
 - JavaScript

@@ -1,10 +1,10 @@
 import React from 'react';
 
-function Track() {
+function Track(props) {
   return (
     <div>
-      <h3>Song Name</h3>
-      <p>Artist | Album</p>
+      <h3>{props.name}</h3>
+      <p>{props.artist} | {props.album}</p>
       <button>+</button>
     </div>
   );
