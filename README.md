@@ -9,7 +9,9 @@ A React web application called Jammming. Using my knowledge of React components,
 - Users can export their custom playlist to their personal Spotify account. 
 
 ## How to Use
-
+1. Create a Spotify application at developer.spotify.com
+2. Add an environment variable to your environment called `VITE_SPOTIFY_API_CLIENT_ID`
+3. Make it's value the Client Id of your Spotify application
 
 ## Technologies
 - HTML

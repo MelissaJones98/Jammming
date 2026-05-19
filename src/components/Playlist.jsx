@@ -11,7 +11,7 @@ function Playlist(props) {
         onChange={e => props.onNameChange(e.target.value)}
       />
       <TrackList tracks={props.tracks} onRemoveTrack={props.onRemoveTrack} isInPlaylist={true} />
-      <button>Save to Spotify</button>
+      <button onClick={props.onSave}>Save to Spotify</button>
     </div>
   );
 }

@@ -1,5 +1,7 @@
-const clientId = 'e060cddc20e6430e93be8d154880121f';
+const clientId = import.meta.env.VITE_SPOTIFY_API_CLIENT_ID;
 const redirectUri = 'http://127.0.0.1:5173';
+
+console.log(clientId)
 
 async function generateCodeVerifier() {
   const array = new Uint8Array(32);
@@ -40,6 +42,7 @@ const Spotify = {
           code_verifier: verifier,
         }),
       });
+      console.log(response);
       const data = await response.json();
       localStorage.setItem('spotify_access_token', data.access_token);
       localStorage.setItem('spotify_token_expiry', Date.now() + data.expires_in * 1000);
@@ -51,7 +54,7 @@ const Spotify = {
     const challenge = await generateCodeChallenge(verifier);
     localStorage.setItem('spotify_code_verifier', verifier);
 
-    window.location = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=playlist-modify-public&code_challenge_method=S256&code_challenge=${challenge}`;
+    window.location = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=playlist-read-private%20playlist-read-collaborative%20playlist-modify-public%20playlist-modify-private&code_challenge_method=S256&code_challenge=${challenge}`;
   },
 
   async search(term) {
@@ -68,7 +71,43 @@ const Spotify = {
       album: track.album.name,
       uri: track.uri
     }));
-  }
+  },
+
+    async savePlaylist(name, trackUris) {
+        if (!name || !trackUris.length) return;
+
+        const token = await Spotify.getAccessToken();
+
+        const userResponse = await fetch('https://api.spotify.com/v1/me', {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        const userData = await userResponse.json();
+        console.log('User data:', userData);
+        const userId = userData.id;
+
+        const playlistResponse = await fetch(`https://api.spotify.com/v1/me/playlists`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: name, public: false, description: "Playlist created by Jammming" })
+        });
+        const playlistData = await playlistResponse.json();
+        console.log('Playlist data:', playlistData);
+        const playlistId = playlistData.id;
+
+        const tracksResponse = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/items`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ uris: trackUris })
+        });
+        const tracksData = await tracksResponse.json();
+        console.log('Tracks data:', tracksData);
+    }
 };
 
 export default Spotify;
