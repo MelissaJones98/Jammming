@@ -2,16 +2,15 @@ import React, { useState } from 'react';
 import TrackList from './TrackList';
 
 function Playlist(props) {
-  const [playlistName, setPlaylistName] = useState('My Playlist');
 
   return (
     <div>
       <input
         type="text"
-        value={playlistName}
-        onChange={e => setPlaylistName(e.target.value)}
+        value={props.playlistName}
+        onChange={e => props.onNameChange(e.target.value)}
       />
-      <TrackList tracks={props.tracks} />
+      <TrackList tracks={props.tracks} onRemoveTrack={props.onRemoveTrack} isInPlaylist={true} />
       <button>Save to Spotify</button>
     </div>
   );

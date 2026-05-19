@@ -6,6 +6,7 @@ import Playlist from './components/Playlist';
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [playlistTracks, setPlaylistTracks] = useState([]);
+  const [playlistName, setPlaylistName] = useState('My Playlist');
 
   const tracks = [
     { id: 1, name: "Bohemian Rhapsody", artist: "Queen", album: "A Night at the Opera" },
@@ -21,6 +22,10 @@ function App() {
     setSearchTerm(term);
   }
 
+  function handleNameChange(playlistName) {
+    setPlaylistName(playlistName);
+  }
+
   function handleAddTrack(track) {
     if (playlistTracks.find(t => t.id === track.id)) {
       return;
@@ -28,11 +33,15 @@ function App() {
     setPlaylistTracks([...playlistTracks, track]);
   }
 
+  function handleRemoveTrack(track) {
+    setPlaylistTracks(playlistTracks.filter(t => t.id !== track.id));
+  }
+
   return (
     <div>
       <SearchBar onSearch={handleSearch} />
       <SearchResults tracks={filteredTracks} onAddTrack={handleAddTrack} />
-      <Playlist tracks={playlistTracks} />
+      <Playlist tracks={playlistTracks} onRemoveTrack={handleRemoveTrack} playlistName={playlistName} onNameChange={handleNameChange} />
     </div>
   );
 }
