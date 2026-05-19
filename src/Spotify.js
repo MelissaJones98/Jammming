@@ -1,5 +1,5 @@
 const clientId = 'e060cddc20e6430e93be8d154880121f';
-const redirectUri = 'https://localhost:5173';
+const redirectUri = 'http://127.0.0.1:5173';
 
 async function generateCodeVerifier() {
   const array = new Uint8Array(32);
