@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import TrackList from './TrackList';
 
 function Playlist(props) {
-
   return (
     <div>
       <input
@@ -10,6 +9,7 @@ function Playlist(props) {
         value={props.playlistName}
         onChange={e => props.onNameChange(e.target.value)}
       />
+      {props.saveError && <p>{props.saveError}</p>}
       <TrackList tracks={props.tracks} onRemoveTrack={props.onRemoveTrack} isInPlaylist={true} />
       <button onClick={props.onSave}>Save to Spotify</button>
     </div>

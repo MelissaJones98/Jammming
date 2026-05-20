@@ -42,7 +42,7 @@ const Spotify = {
           code_verifier: verifier,
         }),
       });
-      console.log(response);
+      
       const data = await response.json();
       localStorage.setItem('spotify_access_token', data.access_token);
       localStorage.setItem('spotify_token_expiry', Date.now() + data.expires_in * 1000);
@@ -62,6 +62,9 @@ const Spotify = {
     const response = await fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
+    if (!response.ok) {
+      throw new Error('Search failed');
+    }
     const data = await response.json();
     if (!data.tracks) return [];
     return data.tracks.items.map(track => ({
@@ -82,7 +85,10 @@ const Spotify = {
             headers: { Authorization: `Bearer ${token}` }
         });
         const userData = await userResponse.json();
-        console.log('User data:', userData);
+        if(!userResponse.ok) {
+          throw new Error('Failed to get user data');
+        }
+        
         const userId = userData.id;
 
         const playlistResponse = await fetch(`https://api.spotify.com/v1/me/playlists`, {
@@ -94,7 +100,9 @@ const Spotify = {
             body: JSON.stringify({ name: name, public: false, description: "Playlist created by Jammming" })
         });
         const playlistData = await playlistResponse.json();
-        console.log('Playlist data:', playlistData);
+        if(!playlistResponse.ok) {
+          throw new Error('Failed to create playlist');
+        }
         const playlistId = playlistData.id;
 
         const tracksResponse = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/items`, {
@@ -106,7 +114,9 @@ const Spotify = {
             body: JSON.stringify({ uris: trackUris })
         });
         const tracksData = await tracksResponse.json();
-        console.log('Tracks data:', tracksData);
+        if(!tracksResponse.ok) {
+          throw new Error('Failed to add tracks');
+        }
     }
 };
 
