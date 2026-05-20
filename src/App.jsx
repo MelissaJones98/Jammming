@@ -3,6 +3,7 @@ import SearchBar from './components/SearchBar';
 import SearchResults from './components/SearchResults';
 import Playlist from './components/Playlist';
 import Spotify from './Spotify';
+import './App.css';
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -59,23 +60,26 @@ function App() {
   }
 
   return (
-    <div>
+    <div className="app">
+      <h1>Jammming</h1>
       <SearchBar onSearch={handleSearch} />
-      <SearchResults 
-        tracks={searchResults} 
-        onAddTrack={handleAddTrack} 
-        hasSearched={hasSearched}
-        isLoading={isLoading} 
-        searchError={searchError}
-      />
-      <Playlist
-        tracks={playlistTracks}
-        onRemoveTrack={handleRemoveTrack}
-        playlistName={playlistName}
-        onNameChange={handleNameChange}
-        onSave={handleSave}
-        saveError={saveError}
-      />
+      <div className="app-content">
+        <SearchResults 
+          tracks={searchResults} 
+          onAddTrack={handleAddTrack} 
+          hasSearched={hasSearched}
+          isLoading={isLoading} 
+          searchError={searchError}
+        />
+        <Playlist
+          tracks={playlistTracks}
+          onRemoveTrack={handleRemoveTrack}
+          playlistName={playlistName}
+          onNameChange={handleNameChange}
+          onSave={handleSave}
+          saveError={saveError}
+        />
+      </div>
     </div>
   );
 }

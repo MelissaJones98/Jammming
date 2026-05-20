@@ -1,0 +1,35 @@
+.playlist {
+  display: flex;
+  flex-direction: column;
+}
+
+.playlist input {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #9b59b6;
+  border-radius: 0;
+  color: #9b59b6;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+  padding: 0.3rem 0;
+  width: 100%;
+}
+
+.playlist input:focus {
+  border-bottom-color: #c39bd3;
+}
+
+.playlist-save {
+  margin-top: 1rem;
+  align-self: center;
+  padding: 0.6rem 2rem;
+}
+
+.save-error {
+  color: #e74c3c;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
