@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import SearchBar from './components/SearchBar';
 import SearchResults from './components/SearchResults';
 import Playlist from './components/Playlist';
@@ -6,7 +6,6 @@ import Spotify from './Spotify';
 import './App.css';
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [playlistTracks, setPlaylistTracks] = useState([]);
   const [playlistName, setPlaylistName] = useState('My Playlist');
@@ -23,6 +22,7 @@ function App() {
       setSearchResults(results);
       setIsLoading(false);    // sets the loading status back to false so the results from spotify or "no results found" displays
     }).catch(error => {
+      console.error('Search failed:', error);
       setSearchError('Something went wrong. Please try again.'); // error handling - error message will be displayed if search fails. 
       setIsLoading(false);
     });
@@ -55,6 +55,7 @@ function App() {
       setPlaylistName('New Playlist');
       setPlaylistTracks([]);
     } catch (error) {
+      console.error('Save playlist failed:', error);
       setSaveError('Something went wrong. Please try again.');
     }
   }
